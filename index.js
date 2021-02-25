@@ -1,4 +1,5 @@
 const { MongoClient } = require("mongodb");
+const express = require("express");
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
@@ -6,7 +7,8 @@ if (process.env.NODE_ENV !== 'production') {
 // Replace the uri string with your MongoDB deployment's connection string.
 const uri = process.env.MongoConnectionString;
 
-const client = new MongoClient(uri);
+const PORT = 2000;
+const app = express();
 
 async function run() {
   try {
@@ -25,4 +27,7 @@ async function run() {
     await client.close();
   }
 }
-run().catch(console.dir);
+
+app.listen(PORT,()=>{
+  console.log(`Listening on port ${PORT}`);
+});
