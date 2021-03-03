@@ -1,3 +1,7 @@
+// EXPRESS SERVER file
+// run with (node index.js)
+// Express  is used to start the server connection, but it is also
+// a very powerful framework
 const { MongoClient } = require("mongodb");
 const express = require("express");
 const cors = require('cors');
@@ -8,7 +12,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const uri = process.env.MONGO_URI;
-const PORT = 2000;
+const PORT = process.env.PORT || 2000;
+
+// CREATE NEW INSTANCE of SERVER db
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const app = express();
 app.use(cors());
