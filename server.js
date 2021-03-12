@@ -21,11 +21,11 @@ db.mongoose
     console.log('Connected to database!');
   }).catch((err) => {
     console.log('Could not connect to DB' + err);
-    process.exit();
+    process.exit(1);
   });
 
 app.get('/', (req, res) => {
-  res.send({ message: "Testing UwU" })
+  res.send({ message: "Testing UwU" });
 });
 
 // Import ROUTES
@@ -64,7 +64,7 @@ app.listen(PORT, () => {
 //     res.end();
 //   } finally {
 //     // Ensures that the client will close when you finish/error
-//     await client.logout();
+    // await client.logout();
 //   }
 // }
 // app.post("/users", (req, res, next) => Promise.resolve(run(req, res).catch(next)));
