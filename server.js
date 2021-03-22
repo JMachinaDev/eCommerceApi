@@ -13,16 +13,53 @@ app.use(cors(corsOptions));
 
 // Start DB
 const db = require('./app/models');
+const dbConfig = require("./app/config/db.config");
+const Role = db.role;
+
 db.mongoose
-  .connect(db.url, {
+  .connect(`${db.url}/${dbConfig.DB}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }).then(() => {
-    console.log('Connected to database!');
+    console.log('Successfully connected to MongoDB!');
+    initial();
   }).catch((err) => {
     console.log('Could not connect to DB' + err);
     process.exit(1);
   });
+
+function initial() {
+  Role.estimatedDocumentCount((err, count) => {
+    if (!err && count === 0) {
+      new Role({
+        name: 'user'
+      }).save(err => {
+        if (err) {
+          console.log('error', err);
+        }
+        console.log('Added "user" to roles collection');
+      });
+
+      new Role({
+        name: 'moderator'
+      }).save(err => {
+        if (err) {
+          console.log('Error', err);
+        }
+        console.log('Added "moderator" to roles collection');
+      });
+
+      new Role({
+        name: 'admin'
+      }).save(err => {
+        if (err) {
+          console.log('Error', err);
+        }
+        console.log('Added "admin" to roles collecion');
+      });
+    }
+  });
+};
 
 app.get('/', (req, res) => {
   res.send({ message: "Testing UwU" });
@@ -30,44 +67,11 @@ app.get('/', (req, res) => {
 
 // Import ROUTES
 require('./app/routes/post.routes')(app);
+require('./app/routes/auth.routes')(app);
+require('./app/routes/user.routes')(app);
+
 // Listen to DB
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
-
-
-
-// async function run(req, res) {
-// const database = require("./app/models");
-//   const client = database.MongoClient;
-//   try {
-//     await client.connect()
-//     const db = client.db('sample_mflix');
-//     // this code gets collection and inserts new document
-//     const collection = await db.collection('userInfo'); // gets collection
-//     let insertObj = await collection.insertOne(
-//       {
-//         'first_name': 'Robert',
-//         'last_name': 'Snyder',
-//         'zip': 46516
-//       });
-//     //queries first_name
-//     // const query = { first_name: 'Robert' }
-//     // const person = await userInfo.findOne(query);
-//     res.setheader['Content-Type', 'application/json'];
-//     res.send(insertObj);
-//   } catch (err) {
-//     console.error(err);
-//     res.writeHead(400, 'You done messed up A-Aron');
-//     res.write(err.toString());
-//     res.end();
-//   } finally {
-//     // Ensures that the client will close when you finish/error
-    // await client.logout();
-//   }
-// }
-// app.post("/users", (req, res, next) => Promise.resolve(run(req, res).catch(next)));
-
-
-
