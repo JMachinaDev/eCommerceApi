@@ -5,6 +5,20 @@ const db = require('../models');
 //https://express-validator.github.io/docs/custom-validators-sanitizers.html
 
 
+// testing for authorization
+exports.allAccess = (req, res) => {
+  res.status(200).send("Public Content.");
+};
+exports.userBoard = (req, res) => {
+  res.status(200).send("User Content.");
+};
+exports.adminBoard = (req, res) => {
+  res.status(200).send("Admin Content.");
+};
+exports.moderatorBoard = (req, res) => {
+  res.status(200).send("Moderator Content.");
+};
+
 // Create and Save a new User
 exports.create = (req, res) => {
   // Validate request
@@ -70,6 +84,7 @@ exports.findOne = (req, res) => {
       }).end();
     });
 };
+
 
 // Update a User by the id in the request
 exports.delete = (req, res) => {
