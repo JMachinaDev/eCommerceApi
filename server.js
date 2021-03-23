@@ -25,9 +25,11 @@ db.mongoose
     initial();
   }).catch((err) => {
     console.log('Could not connect to DB' + err);
-    process.exit(1);
+    process.exit();
   });
 
+
+// check to see if Roles have been added if not add
 function initial() {
   Role.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
