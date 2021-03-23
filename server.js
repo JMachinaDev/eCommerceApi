@@ -25,7 +25,7 @@ db.mongoose
     initial();
   }).catch((err) => {
     console.log('Could not connect to DB' + err);
-    process.exit();
+    process.exit = 1;
   });
 
 
