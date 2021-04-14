@@ -17,7 +17,7 @@ const dbConfig = require("./app/config/db.config");
 const Role = db.role;
 
 db.mongoose
-  .connect(`${db.url}/${dbConfig.DB}`, {
+  .connect(`${db.url}/${dbConfig.collection}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }).then(() => {
@@ -73,7 +73,7 @@ require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 
 // Listen to DB
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
