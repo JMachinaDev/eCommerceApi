@@ -16,15 +16,6 @@ module.exports = app => {
   // Retrieve a single User with id
   router.get('/:id', Users.findOne);
 
-
-  // broke api
-  // Update a user with id
-  // router.put('/:id', Users.update)
-  // Delete a User with id
-  // router.delete('/:id', Users.delete);
-  // Delete all (DANGEROUS)
-  // router.delete('/', User.deleteAll);
-
   app.use('/api/users', router);
 }
 
