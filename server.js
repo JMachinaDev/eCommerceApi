@@ -15,18 +15,14 @@ const db = require('./app/models');
 const dbConfig = require("./app/config/db.config");
 const Role = db.role;
 
-db.mongoose
-  .connect(`${db.url}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }).then(() => {
+db.connect()
+  .then(() => {
     console.log('Successfully connected to MongoDB!');
     initial();
   }).catch((err) => {
     console.log('Could not connect to DB' + err);
     process.exit = 1;
   });
-
 
 // check to see if Roles have been added if not add
 function initial() {
