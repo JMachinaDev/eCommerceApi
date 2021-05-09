@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require('cors');
 
 const corsOptions = {
-  // origin: "http://localhost:8081"
   origin: "*"
 };
 
@@ -17,7 +16,7 @@ const dbConfig = require("./app/config/db.config");
 const Role = db.role;
 
 db.mongoose
-  .connect(`${db.url}/${dbConfig.collection}`, {
+  .connect(`${db.url}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }).then(() => {
